@@ -15,7 +15,7 @@ conflicts=('pgadmin4')
 source=(https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${pkgver}/source/pgadmin4-${pkgver}.tar.gz{,.asc}
         pgAdmin4.desktop)
 validpgpkeys=('E8697E2EEF76C02D3A6332778881B2A8210976F2') # Package Manager (Package Signing Key) <packages@pgadmin.org>
-sha512sums=('563a38545fcc3e59d6dd0db94d0a2ba433de3ac3f75889ed6e73c0db36f6105db6c92c5ffcd4a7116d726adeeb6bec3d29b517a0b4d6f7fd69ea9818713e3500'
+sha512sums=('6277a0da5c797da30a3f7c7914dcc557953e4efb60208743dce10bb8b062be05c6f9b8f720fbd7b513700dae30c6749a75620dd64b0f5de0ccd7537756534b9b'
             'SKIP'
             'd061d074419b78ed96600329c622334310ca8fdef4b7c68d2594eb322ba814e21f4ce54daa8a27f3ce48a643c72feb342f7258eba52db6f915dff6a73bdba7da')
 
