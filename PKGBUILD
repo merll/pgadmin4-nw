@@ -2,7 +2,7 @@
 
 pkgname=pgadmin4-nw
 pkgver=6.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Comprehensive design and management interface for PostgreSQL'
 url='https://www.pgadmin.org/'
 arch=('x86_64')
@@ -23,6 +23,7 @@ prepare() {
   cd pgadmin4-${pkgver}
   virtualenv -p python3 venv
   source venv/bin/activate
+  sed -E "s|eventlet==0.31.0|eventlet==0.33.0|g" -i requirements.txt
   pip install -r requirements.txt
   deactivate
 
