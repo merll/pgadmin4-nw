@@ -1,8 +1,8 @@
 # Maintainer: Matthias Erll <matthias@erll.de>
 
 pkgname=pgadmin4-nw
-pkgver=6.2
-pkgrel=2
+pkgver=6.3
+pkgrel=1
 pkgdesc='Comprehensive design and management interface for PostgreSQL'
 url='https://www.pgadmin.org/'
 arch=('x86_64')
@@ -10,12 +10,12 @@ license=('custom')
 depends=('postgresql-libs' 'hicolor-icon-theme' 'python'
          'libxcrypt' 'glibc' 'gcc-libs' 'nwjs-bin')
 makedepends=('python-setuptools' 'python-virtualenv' 'yarn')
-provides=('pgadmin4=6.2')
+provides=('pgadmin4=6.3')
 conflicts=('pgadmin4')
 source=(https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${pkgver}/source/pgadmin4-${pkgver}.tar.gz{,.asc}
         pgAdmin4.desktop)
 validpgpkeys=('E8697E2EEF76C02D3A6332778881B2A8210976F2') # Package Manager (Package Signing Key) <packages@pgadmin.org>
-sha512sums=('dd85088dcb9ea2248eb2d122a48112fe7d447e6f118e0ed28b3455b49c3c437e13c2d5cfce4801f40b73cf26f442e41b656fbff4542774cc263e5f3925edee67'
+sha512sums=('746f337dce7c97b35cf77a77713bb549a686943bff945026b9fb7e19bcffe2393ae5b1c91f91e21631317147d178ca1b95c587769fb5acf14371d6f961eb1f2d'
             'SKIP'
             'd061d074419b78ed96600329c622334310ca8fdef4b7c68d2594eb322ba814e21f4ce54daa8a27f3ce48a643c72feb342f7258eba52db6f915dff6a73bdba7da')
 
@@ -23,7 +23,6 @@ prepare() {
   cd pgadmin4-${pkgver}
   virtualenv -p python3 venv
   source venv/bin/activate
-  sed -E "s|eventlet==0.31.0|eventlet==0.33.0|g" -i requirements.txt
   pip install -r requirements.txt
   deactivate
 
