@@ -2,14 +2,25 @@
 
 pkgname=pgadmin4-nw
 pkgver=6.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Comprehensive design and management interface for PostgreSQL'
 url='https://www.pgadmin.org/'
 arch=('x86_64')
 license=('custom')
 depends=('postgresql-libs' 'hicolor-icon-theme' 'python'
-         'libxcrypt' 'glibc' 'gcc-libs' 'nwjs-bin')
-makedepends=('python-setuptools' 'python-virtualenv' 'yarn')
+         'libxcrypt' 'glibc' 'gcc-libs'
+         'python-flask' 'python-flask-gravatar' 'python-flask-login'
+         'python-flask-mail' 'python-flask-migrate' 'python-flask-sqlalchemy'
+         'python-flask-wtf' 'python-flask-compress' 'python-flask-paranoid'
+         'python-flask-babel' 'python-flask-security-too' 'python-flask-socketio'
+         'python-wtforms' 'python-passlib' 'python-pytz' 'python-simplejson'
+         'python-six' 'python-speaklater' 'python-sqlparse' 'python-psutil'
+         'python-psycopg2' 'python-dateutil' 'python-sqlalchemy' 'python-bcrypt'
+         'python-cryptography' 'python-sshtunnel' 'python-ldap3' 'python-gssapi'
+         'python-eventlet' 'python-httpagentparser' 'python-user-agents'
+         'python-authlib' 'python-requests' 'python-pyotp' 'python-qrcode'
+         'python-pillow' 'nwjs-bin')
+makedepends=('python-setuptools' 'python-sphinx' 'yarn')
 provides=('pgadmin4=6.3')
 conflicts=('pgadmin4')
 source=(https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${pkgver}/source/pgadmin4-${pkgver}.tar.gz{,.asc}
@@ -21,17 +32,52 @@ sha512sums=('746f337dce7c97b35cf77a77713bb549a686943bff945026b9fb7e19bcffe2393ae
 
 prepare() {
   cd pgadmin4-${pkgver}
-  virtualenv -p python3 venv
-  source venv/bin/activate
-  pip install -r requirements.txt
-  deactivate
 
-  # Sphinx is only needed during build
-  virtualenv -p python3 venv-build
-  source venv-build/bin/activate
-  pip install -r requirements.txt
-  pip install sphinx
-  deactivate
+  sed -E -i requirements.txt \
+    -e '/Flask>?=/d' \
+    -e '/Flask-Gravatar>?=/d' \
+    -e '/Flask-Login>?=/d' \
+    -e '/Flask-Mail>?=/d' \
+    -e '/Flask-Migrate>?=/d' \
+    -e '/Flask-SQLAlchemy>?=/d' \
+    -e '/Flask-WTF>?=/d' \
+    -e '/Flask-Compress>?=/d' \
+    -e '/Flask-Paranoid>?=/d' \
+    -e '/Flask-Babel>?=/d' \
+    -e '/Flask-Security-Too>?=/d' \
+    -e '/Flask-SocketIO>?=/d' \
+    -e '/WTForms>?=/d' \
+    -e '/passlib>?=/d' \
+    -e '/pytz>?=/d' \
+    -e '/simplejson>?=/d' \
+    -e '/six>?=/d' \
+    -e '/speaklater3>?=/d' \
+    -e '/sqlparse>?=/d' \
+    -e '/psutil>?=/d' \
+    -e '/psycopg2>?=/d' \
+    -e '/python-dateutil>?=/d' \
+    -e '/SQLAlchemy>?=/d' \
+    -e '/bcrypt>?=/d' \
+    -e '/cryptography>?=/d' \
+    -e '/sshtunnel>?=/d' \
+    -e '/ldap3>?=/d' \
+    -e '/gssapi>?=/d' \
+    -e '/eventlet>?=/d' \
+    -e '/httpagentparser>?=/d' \
+    -e '/user-agents>?=/d' \
+    -e '/pywinpty>?=/d' \
+    -e '/Authlib>?=/d' \
+    -e '/requests>?=/d' \
+    -e '/pyotp>?=/d' \
+    -e '/qrcode>?=/d' \
+    -e '/Pillow>?=/d' \
+    -e '/^#.*/d' \
+    -e '/^$/d'
+  if [[ -s requirements.txt ]]; then
+    echo "ERROR: requirements.txt must be empty:"
+    cat requirements.txt
+    exit 1
+  fi
 }
 
 build() {
@@ -40,7 +86,6 @@ build() {
   export PGADMIN_PYTHON_DIR=/usr
 
   cd pgadmin4-${pkgver}
-  source venv-build/bin/activate
   # override doctree directory
   make docs SPHINXOPTS='-d /tmp/'
   export CFLAGS+=" ${CPPFLAGS}"
@@ -50,12 +95,11 @@ build() {
   make install-node
   make bundle
 
-  # Change absolute path refrences in virtual environment
-  sed -E "s|$PWD/venv|/usr/lib/pgadmin4/venv|g" -i venv/bin/*
+  # Replace path references to virtual environment
+  sed -E "s|../venv/bin/python3|/usr/bin/python3|g" -i runtime/src/js/misc.js
   # Remove cached files that contain references to src directory
   find . -type d -name __pycache__ -exec rm -R '{}' +
   # Remove additional dev and build files
-  find venv/lib -type d -name "test" -or -name "tests" -exec rm -R '{}' +
   rm -R web/node_modules
   rm -R web/regression
   find web/pgadmin -type d -name "tests" -exec rm -R '{}' +
@@ -68,7 +112,7 @@ package() {
 
   mkdir -p "${pkgdir}/usr/lib/pgadmin4/runtime"
   cp -a runtime/{assets,node_modules,src,package.json} "${pkgdir}/usr/lib/pgadmin4/runtime"
-  cp -a docs web venv "${pkgdir}/usr/lib/pgadmin4"
+  cp -a docs web "${pkgdir}/usr/lib/pgadmin4"
 
   install -Dm 644 pkg/linux/pgadmin4-128x128.png "${pkgdir}/usr/share/icons/hicolor/128x128/apps/pgAdmin4.png"
   install -Dm 644 pkg/linux/pgadmin4-64x64.png "${pkgdir}/usr/share/icons/hicolor/64x64/apps/pgAdmin4.png"
