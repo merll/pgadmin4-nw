@@ -1,7 +1,7 @@
 # Maintainer: Matthias Erll <matthias@erll.de>
 
 pkgname=pgadmin4-nw
-pkgver=6.7
+pkgver=6.8
 pkgrel=1
 pkgdesc='Comprehensive design and management interface for PostgreSQL'
 url='https://www.pgadmin.org/'
@@ -20,14 +20,14 @@ depends=('postgresql-libs' 'hicolor-icon-theme' 'python'
          'python-eventlet' 'python-httpagentparser' 'python-user-agents'
          'python-authlib' 'python-requests' 'python-pyotp' 'python-qrcode'
          'python-pillow' 'python-boto3' 'python-botocore' 'python-urllib3'
-         'nwjs-bin')
+         'nwjs-bin' 'python-werkzeug<=2.1')
 makedepends=('python-setuptools' 'python-sphinx' 'yarn')
-provides=('pgadmin4=6.7')
+provides=('pgadmin4=6.8')
 conflicts=('pgadmin4')
 source=(https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${pkgver}/source/pgadmin4-${pkgver}.tar.gz{,.asc}
         pgAdmin4.desktop)
 validpgpkeys=('E8697E2EEF76C02D3A6332778881B2A8210976F2') # Package Manager (Package Signing Key) <packages@pgadmin.org>
-sha512sums=('c86c81c82e1b6819ad822b677291a533439e85f9e20ddf2e29c9920f06dbe7f32013c94d8f7122d968f12775b6a4f6576d0b7072f9d10c3ade24a479d9d47d28'
+sha512sums=('d5c26c2f89429e6cc4a41b787a2edf206b82bef14fc930f9df3237014f0e46a98656668ea49fa192cf2b2de3751531cbb5eb07cc1af93c146c9de4f3e081c906'
             'SKIP'
             'd061d074419b78ed96600329c622334310ca8fdef4b7c68d2594eb322ba814e21f4ce54daa8a27f3ce48a643c72feb342f7258eba52db6f915dff6a73bdba7da')
 
@@ -75,6 +75,7 @@ prepare() {
     -e '/boto3>?=/d' \
     -e '/botocore>?=/d' \
     -e '/urllib3>?=/d' \
+    -e '/Werkzeug>?=/d' \
     -e '/^#.*/d' \
     -e '/^$/d'
   if [[ -s requirements.txt ]]; then

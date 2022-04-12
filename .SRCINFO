@@ -1,6 +1,6 @@
 pkgbase = pgadmin4-nw
 	pkgdesc = Comprehensive design and management interface for PostgreSQL
-	pkgver = 6.7
+	pkgver = 6.8
 	pkgrel = 1
 	url = https://www.pgadmin.org/
 	arch = x86_64
@@ -54,13 +54,14 @@ pkgbase = pgadmin4-nw
 	depends = python-botocore
 	depends = python-urllib3
 	depends = nwjs-bin
-	provides = pgadmin4=6.7
+	depends = python-werkzeug<=2.1
+	provides = pgadmin4=6.8
 	conflicts = pgadmin4
-	source = https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v6.7/source/pgadmin4-6.7.tar.gz
-	source = https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v6.7/source/pgadmin4-6.7.tar.gz.asc
+	source = https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v6.8/source/pgadmin4-6.8.tar.gz
+	source = https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v6.8/source/pgadmin4-6.8.tar.gz.asc
 	source = pgAdmin4.desktop
 	validpgpkeys = E8697E2EEF76C02D3A6332778881B2A8210976F2
-	sha512sums = c86c81c82e1b6819ad822b677291a533439e85f9e20ddf2e29c9920f06dbe7f32013c94d8f7122d968f12775b6a4f6576d0b7072f9d10c3ade24a479d9d47d28
+	sha512sums = d5c26c2f89429e6cc4a41b787a2edf206b82bef14fc930f9df3237014f0e46a98656668ea49fa192cf2b2de3751531cbb5eb07cc1af93c146c9de4f3e081c906
 	sha512sums = SKIP
 	sha512sums = d061d074419b78ed96600329c622334310ca8fdef4b7c68d2594eb322ba814e21f4ce54daa8a27f3ce48a643c72feb342f7258eba52db6f915dff6a73bdba7da
 
