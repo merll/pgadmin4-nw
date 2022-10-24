@@ -1,7 +1,7 @@
 # Maintainer: Matthias Erll <matthias@erll.de>
 
 pkgname=pgadmin4-nw
-pkgver=6.8
+pkgver=6.15
 pkgrel=1
 pkgdesc='Comprehensive design and management interface for PostgreSQL'
 url='https://www.pgadmin.org/'
@@ -14,20 +14,21 @@ depends=('postgresql-libs' 'hicolor-icon-theme' 'python'
          'python-flask-wtf' 'python-flask-compress' 'python-flask-paranoid'
          'python-flask-babel' 'python-flask-security-too' 'python-flask-socketio'
          'python-wtforms' 'python-passlib' 'python-pytz' 'python-simplejson'
-         'python-six' 'python-speaklater' 'python-sqlparse' 'python-psutil'
+         'python-speaklater' 'python-sqlparse' 'python-psutil'
          'python-psycopg2' 'python-dateutil' 'python-sqlalchemy' 'python-bcrypt'
          'python-cryptography' 'python-sshtunnel' 'python-ldap3' 'python-gssapi'
          'python-eventlet' 'python-httpagentparser' 'python-user-agents'
          'python-authlib' 'python-requests' 'python-pyotp' 'python-qrcode'
          'python-pillow' 'python-boto3' 'python-botocore' 'python-urllib3'
-         'nwjs-bin' 'python-werkzeug<=2.1')
+         'python-azure-mgmt-subscription' 'python-azure-identity'
+         'nwjs-bin')
 makedepends=('python-setuptools' 'python-sphinx' 'yarn')
-provides=('pgadmin4=6.8')
+provides=('pgadmin4=6.15')
 conflicts=('pgadmin4')
 source=(https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${pkgver}/source/pgadmin4-${pkgver}.tar.gz{,.asc}
         pgAdmin4.desktop)
 validpgpkeys=('E8697E2EEF76C02D3A6332778881B2A8210976F2') # Package Manager (Package Signing Key) <packages@pgadmin.org>
-sha512sums=('d5c26c2f89429e6cc4a41b787a2edf206b82bef14fc930f9df3237014f0e46a98656668ea49fa192cf2b2de3751531cbb5eb07cc1af93c146c9de4f3e081c906'
+sha512sums=('f46206278cf9dec32bdc6cbbe35d3ab6fd9725d6c0f9e76c0abc6bed27830f86424aa1b178255961f2fb0650c9356cb67b5f22e159ac49a73adccd9b281039f5'
             'SKIP'
             'd061d074419b78ed96600329c622334310ca8fdef4b7c68d2594eb322ba814e21f4ce54daa8a27f3ce48a643c72feb342f7258eba52db6f915dff6a73bdba7da')
 
@@ -46,12 +47,11 @@ prepare() {
     -e '/Flask-Paranoid>?=/d' \
     -e '/Flask-Babel>?=/d' \
     -e '/Flask-Security-Too>?=/d' \
-    -e '/Flask-SocketIO>?=/d' \
+    -e '/Flask-SocketIO<>?=/d' \
     -e '/WTForms>?=/d' \
     -e '/passlib>?=/d' \
     -e '/pytz>?=/d' \
     -e '/simplejson>?=/d' \
-    -e '/six>?=/d' \
     -e '/speaklater3>?=/d' \
     -e '/sqlparse>?=/d' \
     -e '/psutil>?=/d' \
@@ -76,6 +76,10 @@ prepare() {
     -e '/botocore>?=/d' \
     -e '/urllib3>?=/d' \
     -e '/Werkzeug>?=/d' \
+    -e '/azure-mgmt-rdbms>?=/d' \
+    -e '/azure-mgmt-resource>?=/d' \
+    -e '/azure-mgmt-subscription>?=/d' \
+    -e '/azure-identity>?=/d' \
     -e '/^#.*/d' \
     -e '/^$/d'
   if [[ -s requirements.txt ]]; then
@@ -91,6 +95,12 @@ build() {
   export PGADMIN_PYTHON_DIR=/usr
 
   cd pgadmin4-${pkgver}
+
+  # Patch for Flask 2.2
+  sed -E -i web/pgadmin/browser/utils.py \
+    -e 's/from flask\.views import View, MethodViewType/from flask.views import MethodView/' \
+    -e 's/class NodeView\(View, metaclass=MethodViewType\)/class NodeView(MethodView)/' 
+
   # override doctree directory
   make docs SPHINXOPTS='-d /tmp/'
   export CFLAGS+=" ${CPPFLAGS}"
