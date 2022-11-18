@@ -2,7 +2,7 @@
 
 pkgname=pgadmin4-nw
 pkgver=6.15
-pkgrel=1
+pkgrel=2
 pkgdesc='Comprehensive design and management interface for PostgreSQL'
 url='https://www.pgadmin.org/'
 arch=('x86_64')
@@ -21,6 +21,7 @@ depends=('postgresql-libs' 'hicolor-icon-theme' 'python'
          'python-authlib' 'python-requests' 'python-pyotp' 'python-qrcode'
          'python-pillow' 'python-boto3' 'python-botocore' 'python-urllib3'
          'python-azure-mgmt-subscription' 'python-azure-identity'
+         'python-azure-mgmt-rdbms' 'python-azure-mgmt-resource'
          'nwjs-bin')
 makedepends=('python-setuptools' 'python-sphinx' 'yarn')
 provides=('pgadmin4=6.15')
