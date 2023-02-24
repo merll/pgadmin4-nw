@@ -1,0 +1,26 @@
+--- web/pgadmin/__init__.py.original	2023-02-24 23:42:20.804004307 +0100
++++ web/pgadmin/__init__.py	2023-02-24 23:41:01.387113625 +0100
+@@ -297,11 +297,6 @@
+     ##########################################################################
+ 
+     # Initialise i18n
+-    babel = Babel(app)
+-
+-    app.logger.debug('Available translations: %s' % babel.list_translations())
+-
+-    @babel.localeselector
+     def get_locale():
+         """Get the language for the user."""
+         language = 'en'
+@@ -335,6 +330,11 @@
+ 
+         return language
+ 
++    babel = Babel(app, locale_selector=get_locale)
++
++    with app.app_context():
++        app.logger.debug('Available translations: %s' % babel.list_translations())
++
+     ##########################################################################
+     # Setup authentication
+     ##########################################################################

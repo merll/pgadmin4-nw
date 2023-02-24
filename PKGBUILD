@@ -2,7 +2,7 @@
 
 pkgname=pgadmin4-nw
 pkgver=6.20
-pkgrel=1
+pkgrel=2
 pkgdesc='Comprehensive design and management interface for PostgreSQL'
 url='https://www.pgadmin.org/'
 arch=('x86_64')
@@ -28,11 +28,13 @@ makedepends=('python-setuptools' 'python-sphinx' 'yarn')
 provides=('pgadmin4=6.20')
 conflicts=('pgadmin4')
 source=(https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${pkgver}/source/pgadmin4-${pkgver}.tar.gz{,.asc}
-        pgAdmin4.desktop)
+        pgAdmin4.desktop
+        web-pgadmin-__init__.py.diff)
 validpgpkeys=('E8697E2EEF76C02D3A6332778881B2A8210976F2') # Package Manager (Package Signing Key) <packages@pgadmin.org>
 sha512sums=('f185b1b23ecd207a3593884aa4970faf0b9c074c953954410886985480f9a905b20b86ae5ea18c402664619486dda45303e12dbc6c02f07a243e2c381c549584'
             'SKIP'
-            'd061d074419b78ed96600329c622334310ca8fdef4b7c68d2594eb322ba814e21f4ce54daa8a27f3ce48a643c72feb342f7258eba52db6f915dff6a73bdba7da')
+            'd061d074419b78ed96600329c622334310ca8fdef4b7c68d2594eb322ba814e21f4ce54daa8a27f3ce48a643c72feb342f7258eba52db6f915dff6a73bdba7da'
+            '13a96b3c40b52551c2dc6fde691ff05942071257ad88f87c3a71260a4d62077ae748b77305d949c8e1345364fa9047e89eaafd1779acae083cdc09ed21a707a5')
 
 prepare() {
   cd pgadmin4-${pkgver}
@@ -103,7 +105,10 @@ build() {
   # Patch for Flask 2.2
   sed -E -i web/pgadmin/browser/utils.py \
     -e 's/from flask\.views import View, MethodViewType/from flask.views import MethodView/' \
-    -e 's/class NodeView\(View, metaclass=MethodViewType\)/class NodeView(MethodView)/' 
+    -e 's/class NodeView\(View, metaclass=MethodViewType\)/class NodeView(MethodView)/'
+
+  # Patch for Flask-Babel 3.0
+  patch -u web/pgadmin/__init__.py -i "${srcdir}/web-pgadmin-__init__.py.diff"
 
   # override doctree directory
   make docs SPHINXOPTS='-d /tmp/'
