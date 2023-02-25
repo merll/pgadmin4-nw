@@ -1,0 +1,10 @@
+--- web/pgAdmin4.py.original	2023-02-25 19:45:58.894999172 +0100
++++ web/pgAdmin4.py	2023-02-25 19:46:23.168442666 +0100
+@@ -218,6 +218,7 @@
+                     app,
+                     host=config.DEFAULT_SERVER,
+                     port=config.EFFECTIVE_SERVER_PORT,
++                    allow_unsafe_werkzeug=True,
+                 )
+             except KeyboardInterrupt:
+                 print("CLOSE SERVER")
