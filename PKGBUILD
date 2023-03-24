@@ -2,7 +2,7 @@
 
 pkgname=pgadmin4-nw
 pkgver=6.21
-pkgrel=1
+pkgrel=2
 pkgdesc='Comprehensive design and management interface for PostgreSQL'
 url='https://www.pgadmin.org/'
 arch=('x86_64')
@@ -34,7 +34,7 @@ source=(https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${pkgver}/source/pgadmi
 validpgpkeys=('E8697E2EEF76C02D3A6332778881B2A8210976F2') # Package Manager (Package Signing Key) <packages@pgadmin.org>
 sha512sums=('901bbafa2fea27c7f19b67f5c5bd9b1b586f5d63d817846d529b03d60e95f1a62f260f12b20f383f0f1c08f72dee3d256de3288eda0936b9a7d4dff2c319fede'
             'SKIP'
-            'd061d074419b78ed96600329c622334310ca8fdef4b7c68d2594eb322ba814e21f4ce54daa8a27f3ce48a643c72feb342f7258eba52db6f915dff6a73bdba7da'
+            '0f283eed09cd83e9532257e1340732253cb6e88d99ced7ba09bf4f1525f7a46f23e18f88099079715be509d6155ed3fa498b2bdd75fe89dc7802d7b8563756f5'
             '577ea18167ed562ecd2dfe0a4f6b79db7cdc0998d917b3dd6422990702057681728c671d3ca698ca8ad6d7ea1ddc7f46eab96de6d26e43dd67b0dcf8000ee829'
             '13a96b3c40b52551c2dc6fde691ff05942071257ad88f87c3a71260a4d62077ae748b77305d949c8e1345364fa9047e89eaafd1779acae083cdc09ed21a707a5')
 
@@ -101,6 +101,8 @@ build() {
   export LANG=en_US.UTF-8
   export LC_ALL=en_US.UTF-8
   export PGADMIN_PYTHON_DIR=/usr
+  # Workaround until eventlet is upgraded to >=0.33.3
+  export EVENTLET_NO_GREENDNS=yes
 
   cd pgadmin4-${pkgver}
 
@@ -152,7 +154,7 @@ package() {
 
   install -D /dev/stdin "${pkgdir}/usr/bin/pgadmin4" <<END
 #!/bin/sh
-exec /usr/bin/nw /usr/lib/pgadmin4/runtime/ "\$@"
+EVENTLET_NO_GREENDNS=yes exec /usr/bin/nw /usr/lib/pgadmin4/runtime/ "\$@"
 END
 
   install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgbasename}"
