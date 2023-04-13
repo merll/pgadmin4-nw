@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=pgAdmin 4
-Exec=env EVENTLET_NO_GREENDNS=yes /usr/bin/nw /usr/lib/pgadmin4/runtime/
+Exec=/usr/bin/nw /usr/lib/pgadmin4/runtime/
 Icon=pgAdmin4
 Type=Application
 Categories=Application;Development;Database;
