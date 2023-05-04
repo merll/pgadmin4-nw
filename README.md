@@ -27,12 +27,13 @@ the main window is open.
 
 ```sh
 yay -S --asdeps --aur \
+  python-ua-parser \
+  python-user-agents \
+  python-httpagentparser \
   python-azure-mgmt-subscription \
   python-azure-identity \
   python-azure-mgmt-rdbms \
   python-azure-mgmt-resource \
-  python-dnspython \
-  python-greenlet \
   python-sphinxcontrib-youtube \
   nwjs-bin
 ```

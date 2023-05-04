@@ -1,7 +1,7 @@
 # Maintainer: Matthias Erll <matthias@erll.de>
 
 pkgname=pgadmin4-nw
-pkgver=7.0
+pkgver=7.1
 pkgrel=1
 pkgdesc='Comprehensive design and management interface for PostgreSQL'
 url='https://www.pgadmin.org/'
@@ -23,15 +23,15 @@ depends=('postgresql-libs' 'hicolor-icon-theme' 'python'
          'python-google-api-python-client' 'python-google-auth-oauthlib'
          'python-azure-mgmt-subscription' 'python-azure-identity'
          'python-azure-mgmt-rdbms' 'python-azure-mgmt-resource'
-         'python-greenlet' 'python-sphinxcontrib-youtube'
+         'python-greenlet' 'python-sphinxcontrib-youtube' 'python-ua-parser'
          'nwjs-bin')
 makedepends=('python-setuptools' 'python-sphinx' 'yarn')
-provides=('pgadmin4=7.0')
+provides=('pgadmin4=7.1')
 conflicts=('pgadmin4')
 source=(https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${pkgver}/source/pgadmin4-${pkgver}.tar.gz{,.asc}
         pgAdmin4.desktop)
 validpgpkeys=('E8697E2EEF76C02D3A6332778881B2A8210976F2') # Package Manager (Package Signing Key) <packages@pgadmin.org>
-sha512sums=('daf235d1e3b34f1412b6acf4753e4205f5ee2b9261327840b0b0a1f7bd4ac47b1bf7c3c4d9eb992dc89535c1d34d1e120016dd1e54f8bc5f015604eeb03447dd'
+sha512sums=('7f3008d5bbe41266cf2e702f01b5d2717e9e195d9b5d789d7ffc014ccdcc8e94727867a09e9907ff5317b790046e49a46be1385aa70bf8ece80680b8d8035f92'
             'SKIP'
             'd061d074419b78ed96600329c622334310ca8fdef4b7c68d2594eb322ba814e21f4ce54daa8a27f3ce48a643c72feb342f7258eba52db6f915dff6a73bdba7da')
 
@@ -78,6 +78,7 @@ prepare() {
     -e '/boto3>?=/d' \
     -e '/botocore>?=/d' \
     -e '/urllib3>?=/d' \
+    -e '/Werkzeug>?=/d' \
     -e '/azure-mgmt-rdbms>?=/d' \
     -e '/azure-mgmt-resource>?=/d' \
     -e '/azure-mgmt-subscription>?=/d' \
