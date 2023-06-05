@@ -1,7 +1,7 @@
 # Maintainer: Matthias Erll <matthias@erll.de>
 
 pkgname=pgadmin4-nw
-pkgver=7.1
+pkgver=7.2
 pkgrel=1
 pkgdesc='Comprehensive design and management interface for PostgreSQL'
 url='https://www.pgadmin.org/'
@@ -14,7 +14,7 @@ depends=('postgresql-libs' 'hicolor-icon-theme' 'python'
          'python-flask-wtf' 'python-flask-compress' 'python-flask-paranoid'
          'python-flask-babel' 'python-flask-security-too' 'python-flask-socketio'
          'python-wtforms' 'python-passlib' 'python-pytz' 'python-simplejson'
-         'python-speaklater' 'python-sqlparse' 'python-psutil'
+         'python-speaklater' 'python-sqlparse' 'python-psutil' 'python-keyring'
          'python-psycopg' 'python-dateutil' 'python-sqlalchemy' 'python-bcrypt'
          'python-cryptography' 'python-sshtunnel' 'python-ldap3' 'python-gssapi'
          'python-eventlet' 'python-httpagentparser' 'python-user-agents'
@@ -31,7 +31,7 @@ conflicts=('pgadmin4')
 source=(https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${pkgver}/source/pgadmin4-${pkgver}.tar.gz{,.asc}
         pgAdmin4.desktop)
 validpgpkeys=('E8697E2EEF76C02D3A6332778881B2A8210976F2') # Package Manager (Package Signing Key) <packages@pgadmin.org>
-sha512sums=('7f3008d5bbe41266cf2e702f01b5d2717e9e195d9b5d789d7ffc014ccdcc8e94727867a09e9907ff5317b790046e49a46be1385aa70bf8ece80680b8d8035f92'
+sha512sums=('705d5fdb3031b2964da09115c26ab5a2021ea3415a1d0d422ca75cc354df9a5966b95b5e3532f9987df6cb6ba136a48048bf4e23b65669430c4f3e47c57518a3'
             'SKIP'
             'd061d074419b78ed96600329c622334310ca8fdef4b7c68d2594eb322ba814e21f4ce54daa8a27f3ce48a643c72feb342f7258eba52db6f915dff6a73bdba7da')
 
@@ -58,6 +58,7 @@ prepare() {
     -e '/speaklater3>?=/d' \
     -e '/sqlparse>?=/d' \
     -e '/psutil>?=/d' \
+    -e '/keyring>?=/d' \
     -e '/psycopg\[c\]>?=/d' \
     -e '/python-dateutil>?=/d' \
     -e '/SQLAlchemy>?=/d' \
