@@ -1,7 +1,7 @@
 # Maintainer: Matthias Erll <matthias@erll.de>
 
 pkgname=pgadmin4-nw
-pkgver=7.2
+pkgver=7.3
 pkgrel=1
 pkgdesc='Comprehensive design and management interface for PostgreSQL'
 url='https://www.pgadmin.org/'
@@ -31,7 +31,7 @@ conflicts=('pgadmin4')
 source=(https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${pkgver}/source/pgadmin4-${pkgver}.tar.gz{,.asc}
         pgAdmin4.desktop)
 validpgpkeys=('E8697E2EEF76C02D3A6332778881B2A8210976F2') # Package Manager (Package Signing Key) <packages@pgadmin.org>
-sha512sums=('705d5fdb3031b2964da09115c26ab5a2021ea3415a1d0d422ca75cc354df9a5966b95b5e3532f9987df6cb6ba136a48048bf4e23b65669430c4f3e47c57518a3'
+sha512sums=('004ade881ab68cc8c172a3d149026d2849aeb76d1572d6f1faa71c9b73e7a608d34cf240847c8855e74e917e78473a4a5a8c8a87c21dc6c02266ffec752747d4'
             'SKIP'
             'd061d074419b78ed96600329c622334310ca8fdef4b7c68d2594eb322ba814e21f4ce54daa8a27f3ce48a643c72feb342f7258eba52db6f915dff6a73bdba7da')
 
