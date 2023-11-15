@@ -4,19 +4,30 @@
 
 These package sources can be used to install [pgAdmin 4](https://www.pgadmin.org/) on Arch Linux.
 
-Required Python libraries are either installed from the Arch community repository,
-or from [Arch User Repository](https://aur.archlinux.org/) packages where the former
-are not available. Patches are applied if required for maintaining compatibility
-with the system-wide packages. No virtual Python environment is used.
-The main difference to pgAdmin 4 as published in the community repo is that, instead
-of providing a tray icon app with the server running in the background, the desktop
-deployment is done as
+Functionally, the main difference to pgAdmin 4 as published in the community repo
+is that, instead of providing a tray icon app with the server running in the background,
+the desktop deployment is done as
 [described in the pgAdmin docs](https://www.pgadmin.org/docs/pgadmin4/latest/desktop_deployment.html),
 using [NW.js](https://nwjs.io/).
 
 Practically this means that pgAdmin is shown in a Chromium-based dedicated browser
 window. The web application is served by a webserver in the background as long as
 the main window is open.
+
+Earlier versions attempted to maintain compatibility with packaged Python
+libaries from the community repository. This became impossible to maintain however,
+for two reasons:
+
+1. Conflicts in required versions of pgAdmin4 vs. the Arch packaged libraries increased.
+   In the beginning, there were just a few patches required to make it work. Over
+   time the incompatibilities grew.
+2. Growing number of packages used by pgAdmin4, which were not covered by community
+   or [Arch User Repository](https://aur.archlinux.org/) packages.
+
+Therefore this packages the virtual environment along with the installation. Be aware
+this adds bloat to the resulting package, but on the other hand will save you the
+trouble of installing a lot of Python packages system-wide that are potentially
+only needed for pgAdmin.
 
 ## How
 
@@ -26,16 +37,7 @@ the main window is open.
 > [YAY](https://github.com/Jguer/yay).
 
 ```sh
-yay -S --asdeps --aur \
-  python-ua-parser \
-  python-user-agents \
-  python-httpagentparser \
-  python-azure-mgmt-subscription \
-  python-azure-identity \
-  python-azure-mgmt-rdbms \
-  python-azure-mgmt-resource \
-  python-sphinxcontrib-youtube \
-  nwjs-bin
+yay -S --asdeps --aur nwjs-bin
 ```
 
 2. Clone this repository, build and install:
