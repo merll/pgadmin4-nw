@@ -1,7 +1,7 @@
 # Maintainer: Matthias Erll <matthias@erll.de>
 
 pkgname=pgadmin4-nw
-pkgver=8.1
+pkgver=8.2
 pkgrel=1
 pkgdesc='Comprehensive design and management interface for PostgreSQL'
 url='https://www.pgadmin.org/'
@@ -11,12 +11,12 @@ depends=('postgresql-libs' 'hicolor-icon-theme' 'python'
          'libxcrypt' 'glibc' 'gcc-libs'
          'nwjs-bin')
 makedepends=('python-setuptools' 'python-virtualenv' 'yarn')
-provides=('pgadmin4=8.1')
+provides=('pgadmin4=8.2')
 conflicts=('pgadmin4')
 source=(https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${pkgver}/source/pgadmin4-${pkgver}.tar.gz{,.asc}
         pgAdmin4.desktop)
 validpgpkeys=('E8697E2EEF76C02D3A6332778881B2A8210976F2') # Package Manager (Package Signing Key) <packages@pgadmin.org>
-sha512sums=('c09b6d5cc5b759c69df821deed9fcbbb145b982b5cd15a02154ccfc1e7cad9ecb659bbca808d9d71e2efb1ad99e539eed64207695ee5979a6325f06c2777f463'
+sha512sums=('fb1a40ba363787fa6dddaf384e6d54c2b84d058824a66ea8e08edcba4a4d0b19f25428fa437896d3989ce73621d3b9c39a2ab9f0bd1a01100ed1c537ea12ef2e'
             'SKIP'
             'd061d074419b78ed96600329c622334310ca8fdef4b7c68d2594eb322ba814e21f4ce54daa8a27f3ce48a643c72feb342f7258eba52db6f915dff6a73bdba7da')
 
@@ -47,7 +47,8 @@ build() {
   export CFLAGS+=" ${CPPFLAGS}"
   export CXXFLAGS+=" ${CPPFLAGS}"
   make runtime
-  cd runtime && yarn install --production=true && cd ..
+  yarn set version stable
+  cd runtime && yarn workspaces focus --all --production && cd ..
   make install-node
   make bundle
   # Replace path references to virtual environment in build path
