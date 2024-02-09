@@ -1,7 +1,7 @@
 # Maintainer: Matthias Erll <matthias@erll.de>
 
 pkgname=pgadmin4-nw
-pkgver=8.2
+pkgver=8.3
 pkgrel=1
 pkgdesc='Comprehensive design and management interface for PostgreSQL'
 url='https://www.pgadmin.org/'
@@ -11,12 +11,12 @@ depends=('postgresql-libs' 'hicolor-icon-theme' 'python'
          'libxcrypt' 'glibc' 'gcc-libs'
          'nwjs-bin')
 makedepends=('python-setuptools' 'python-virtualenv' 'yarn')
-provides=('pgadmin4=8.2')
+provides=('pgadmin4=8.3')
 conflicts=('pgadmin4')
 source=(https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${pkgver}/source/pgadmin4-${pkgver}.tar.gz{,.asc}
         pgAdmin4.desktop)
 validpgpkeys=('E8697E2EEF76C02D3A6332778881B2A8210976F2') # Package Manager (Package Signing Key) <packages@pgadmin.org>
-sha512sums=('fb1a40ba363787fa6dddaf384e6d54c2b84d058824a66ea8e08edcba4a4d0b19f25428fa437896d3989ce73621d3b9c39a2ab9f0bd1a01100ed1c537ea12ef2e'
+sha512sums=('1ee9695eb5243f3756c3249576d5f3ef5cd2b17e9f441a7addac6ce9132cce49d27bb12ea80b694aaaa51aa74977c7dfe2229d3fe7f0ea343e6b94a396ffc9ca'
             'SKIP'
             'd061d074419b78ed96600329c622334310ca8fdef4b7c68d2594eb322ba814e21f4ce54daa8a27f3ce48a643c72feb342f7258eba52db6f915dff6a73bdba7da')
 
@@ -28,7 +28,7 @@ prepare() {
   python3 -m venv venv-build
   venv-build/bin/pip install --upgrade pip
   venv-build/bin/pip install wheel sphinx==6.1.3 sphinxcontrib-youtube -r requirements.txt
-  
+
   # Create runtime environment (separate from build for reducing package size)
   if [ -d venv ]; then rm -R venv; fi
   python3 -m venv venv
