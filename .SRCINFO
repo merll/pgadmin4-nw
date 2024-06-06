@@ -1,6 +1,6 @@
 pkgbase = pgadmin4-nw
 	pkgdesc = Comprehensive design and management interface for PostgreSQL
-	pkgver = 8.6
+	pkgver = 8.8
 	pkgrel = 1
 	url = https://www.pgadmin.org/
 	arch = x86_64
@@ -15,13 +15,13 @@ pkgbase = pgadmin4-nw
 	depends = glibc
 	depends = gcc-libs
 	depends = nwjs-bin
-	provides = pgadmin4=8.6
+	provides = pgadmin4=8.8
 	conflicts = pgadmin4
-	source = https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v8.6/source/pgadmin4-8.6.tar.gz
-	source = https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v8.6/source/pgadmin4-8.6.tar.gz.asc
+	source = https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v8.8/source/pgadmin4-8.8.tar.gz
+	source = https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v8.8/source/pgadmin4-8.8.tar.gz.asc
 	source = pgAdmin4.desktop
 	validpgpkeys = E8697E2EEF76C02D3A6332778881B2A8210976F2
-	sha512sums = 22ae7fe63fa0ca4c2fda9def0f7758d086713e621f8c00c3c20d793034c4cc93b35eb04ada934e5ce2b14caaecdc4f4bd046efd321f1a6c3de9e980bb786b31b
+	sha512sums = 7bb8b446c784e09c4d13350f5c31eff610a268527d1d217d15aa830f6d592ca84cf77a30918bd3f40bb103a05e48fca0e077fae00da636918ab8b3512a9d651b
 	sha512sums = SKIP
 	sha512sums = d061d074419b78ed96600329c622334310ca8fdef4b7c68d2594eb322ba814e21f4ce54daa8a27f3ce48a643c72feb342f7258eba52db6f915dff6a73bdba7da
 
