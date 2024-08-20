@@ -8,7 +8,7 @@ Functionally, the main difference to pgAdmin 4 as published in the community rep
 is that, instead of providing a tray icon app with the server running in the background,
 the desktop deployment is done as
 [described in the pgAdmin docs](https://www.pgadmin.org/docs/pgadmin4/latest/desktop_deployment.html),
-using [NW.js](https://nwjs.io/).
+using Electron.
 
 Practically this means that pgAdmin is shown in a Chromium-based dedicated browser
 window. The web application is served by a webserver in the background as long as
@@ -31,16 +31,7 @@ only needed for pgAdmin.
 
 ## How
 
-1. Install package dependencies that are not in the Arch community repo:
-
-> Use any AUR helper of your choice. This example uses
-> [YAY](https://github.com/Jguer/yay).
-
-```sh
-yay -S --asdeps --aur nwjs-bin
-```
-
-2. Clone this repository, build and install:
+Clone this repository, build and install:
 
 ```sh
 git clone https://github.com/merll/pgadmin4-nw.git
