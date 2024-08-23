@@ -72,8 +72,9 @@ package() {
 
   install -Dm 755 -d "${pkgdir}/usr/lib/pgadmin4/runtime"
   cp -a runtime/{assets,node_modules,src,package.json} "${pkgdir}/usr/lib/pgadmin4/runtime"
-  cp -a docs web venv "${pkgdir}/usr/lib/pgadmin4"
-  cp -a pkg/linux/config_distro.py "${pkgdir}/usr/lib/pgadmin4/runtime/web"
+  cp -a web venv "${pkgdir}/usr/lib/pgadmin4"
+  install -Dm 755 -d docs/en_US/_build/html "${pkgdir}/usr/lib/pgadmin4/share/docs/en_US"
+  cp -a pkg/linux/config_distro.py "${pkgdir}/usr/lib/pgadmin4/web"
 
   install -Dm 644 pkg/linux/pgadmin4-128x128.png "${pkgdir}/usr/share/icons/hicolor/128x128/apps/pgAdmin4.png"
   install -Dm 644 pkg/linux/pgadmin4-64x64.png "${pkgdir}/usr/share/icons/hicolor/64x64/apps/pgAdmin4.png"
