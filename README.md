@@ -54,13 +54,20 @@ pgAdmin no longer being able to start. In addition, the amount of dependencies
 (i.e. Python packages) has grown beyond what is maintained in the Arch
 community repository.
 
-Temporarily, some similar packages as this one were published in the Arch User
+Some similar packages as this one had been published in the Arch User
 Repository. However, all of them have been removed in the meantime due to conflicts with
 [AUR Submission Rules](https://wiki.archlinux.org/title/AUR_submission_guidelines).
+Recently `pgadmin4-desktop` and `pgadmin4-server` were added again, which are based on
+the pgAdmin4 Debian packages distributed by the pgAdmin4 development team. Using these
+may result in a larger installation size, but will be much faster because it already
+comes with all Python packages and Node.js modules pre-packaged. Hopefully these stay
+around in the AUR. For the time being, this repo can be exepected to be updated with
+new pgAdmin4 releases as well.
 
 ## Alternatives
 
 pgAdmin can also be installed
 
+* [using the recently-added AUR package](https://aur.archlinux.org/packages/pgadmin4-desktop)
 * [using a container](https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html)
 * [via a Python package](https://www.pgadmin.org/download/pgadmin-4-python/)
