@@ -1,7 +1,7 @@
 # Maintainer: Matthias Erll <matthias@erll.de>
 
 pkgname=pgadmin4-nw
-pkgver=8.10
+pkgver=8.11
 pkgrel=1
 pkgdesc='Comprehensive design and management interface for PostgreSQL'
 url='https://www.pgadmin.org/'
@@ -11,12 +11,12 @@ depends=('postgresql-libs' 'hicolor-icon-theme' 'python'
          'libxcrypt' 'glibc' 'gcc-libs'
          'electron')
 makedepends=('python-setuptools' 'python-virtualenv' 'yarn')
-provides=('pgadmin4=8.10')
+provides=('pgadmin4=8.11')
 conflicts=('pgadmin4')
 source=(https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${pkgver}/source/pgadmin4-${pkgver}.tar.gz{,.asc}
         pgAdmin4.desktop)
 validpgpkeys=('E8697E2EEF76C02D3A6332778881B2A8210976F2') # Package Manager (Package Signing Key) <packages@pgadmin.org>
-sha512sums=('135256a03822ac2be803c76dffc1c653221fb4a7f5a9d573b4ca7c2e7336982b7b782099591f9182e321b29a1a20a150675a5818cae17f6c304276705aa59e23'
+sha512sums=('fa43a7cada07503e532143cbdfef140e57a138543e3e6d3fc37fe51b0400f1313934df0b7012d94791714f9219aea832efab1ad9e9a471a3e8657cedcad29680'
             'SKIP'
             '844868095bbfb40fd0abc641f92f609c71e1d2f87b6edae3b79735266731df0bd8d6bfd513d492ec6016fdd6eb73e4a153366e7e2456adc8173524eb6dab94e2')
 
