@@ -27,7 +27,7 @@ prepare() {
   if [ -d venv-build ]; then rm -R venv-build; fi
   python3 -m venv venv-build
   venv-build/bin/pip install --upgrade pip
-  venv-build/bin/pip install wheel sphinx==6.1.3 sphinxcontrib-youtube -r requirements.txt
+  venv-build/bin/pip install wheel sphinx==8.1.3 sphinxcontrib-youtube -r requirements.txt
 
   # Create runtime environment (separate from build for reducing package size)
   if [ -d venv ]; then rm -R venv; fi
